@@ -7,7 +7,7 @@ import {
   Ref,
 } from "@typegoose/typegoose";
 import argon2 from "argon2";
-import logger from "../service/loggerService";
+import logger from "../services/loggerService";
 import { Pokemon } from "./pokemonModel";
 
 enum ERoles {

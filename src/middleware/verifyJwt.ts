@@ -1,12 +1,8 @@
 import jwt from "jsonwebtoken";
 import config from "config";
-import { Request, Response, NextFunction } from "express";
+import { INext, IReq, IRes } from "../interface/IExpress";
 
-export const verifyJwt = async (
-  req: Request,
-  res: Response,
-  nxt: NextFunction
-) => {
+export const verifyJwt = async (req: IReq, res: IRes, nxt: INext) => {
   const accessKey = config.get<string>("accessToken");
   const authToken = req.headers["authorization"];
   const token = authToken && authToken.split(" ")[1];
@@ -15,7 +11,7 @@ export const verifyJwt = async (
 
   jwt.verify(token, accessKey, (err, user) => {
     if (err) return res.status(403);
-    // req.user = user
+    req.user = user;
     console.log(user);
     return nxt();
   });

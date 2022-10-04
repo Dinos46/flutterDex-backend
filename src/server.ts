@@ -1,12 +1,12 @@
 import config from "config";
 import express from "express";
-import { connecrDb } from "./service/dbService";
-import logger from "./service/loggerService";
+import { connecrDb } from "./services/dbService";
+import logger from "./services/loggerService";
 import cors from "cors";
-import router from "./route";
+import router from "./routes";
 import axios from "axios";
 import { IPokemon } from "./interface/IPokemon";
-import PokemonModel from "./model/pokemonModel";
+// import PokemonModel from "./models/pokemonModel";
 
 const port = config.get("port");
 const app = express();
@@ -14,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(router);
+
 const getEachPokem = async (name: string) => {
   const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
   const { data } = await axios.get(url);
@@ -41,9 +42,9 @@ const getPokemon = async () => {
   for (let res of data.results) {
     pokePrms.push(getEachPokem(res.name));
   }
-  const res = await Promise.all(pokePrms);
-  const pokRes = await PokemonModel.insertMany(res);
-  console.log(pokRes);
+  await Promise.all(pokePrms);
+  // const pokRes = await PokemonModel.insertMany(res);
+  console.log(data);
 };
 getPokemon();
 
