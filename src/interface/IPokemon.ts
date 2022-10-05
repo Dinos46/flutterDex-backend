@@ -8,6 +8,7 @@ export interface IPokemon {
   //   stats: Stat[];
   types: Type[];
   weight: number;
+  order: number;
 }
 
 interface Type {
@@ -22,10 +23,10 @@ interface Type {
 // }
 
 interface Sprites {
-  back_default: string;
-  back_shiny: string;
-  front_default: string;
-  front_shiny: string;
+  back_default?: string;
+  back_shiny?: string;
+  front_default?: string;
+  front_shiny?: string;
 }
 
 // interface Move {

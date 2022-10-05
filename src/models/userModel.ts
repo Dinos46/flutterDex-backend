@@ -5,6 +5,7 @@ import {
   pre,
   DocumentType,
   Ref,
+  index,
 } from "@typegoose/typegoose";
 import argon2 from "argon2";
 import logger from "../services/loggerService";
@@ -15,6 +16,7 @@ enum ERoles {
   ADMIN = "admin",
 }
 
+@index({ email: 1 })
 @pre<User>("save", async function () {
   if (!this.isModified("password")) {
     return;

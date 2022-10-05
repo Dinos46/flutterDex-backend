@@ -1,48 +1,29 @@
-import { prop, modelOptions, getModelForClass } from "@typegoose/typegoose";
+import {
+  prop,
+  modelOptions,
+  getModelForClass,
+  index,
+} from "@typegoose/typegoose";
 
-class Ability {
-  @prop()
-  public name: string;
-  @prop()
-  public url: string;
-}
-
-class Sprites {
-  @prop()
-  public back_default?: string;
-  @prop()
-  public back_shiny?: string;
-  @prop({ required: true })
-  public front_default: string;
-  @prop()
-  public front_shiny?: string;
-}
-
-class Type {
-  @prop()
-  publicslot: number;
-  @prop()
-  public type: Ability;
-}
-
+@index({ order: 1 }, { unique: true })
 @modelOptions({
   schemaOptions: {
     timestamps: true,
   },
 })
 export class Pokemon {
-  @prop({ lowercase: true, required: true, unique: true })
+  @prop({ lowercase: true, index: true })
   public name: string;
-  @prop()
+  @prop({ index: true })
   public height: number;
-  @prop()
-  public species: Ability;
-  @prop()
-  public sprites: Sprites;
-  @prop({ type: () => Type })
-  public types: Type[];
+  @prop({ type: () => String })
+  public sprites: string[];
+  @prop({ type: () => String, index: true })
+  public types: string[];
   @prop()
   public weight: number;
+  @prop()
+  public order: number;
 }
 
 const PokemonModel = getModelForClass(Pokemon);
