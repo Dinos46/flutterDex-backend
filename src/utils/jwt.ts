@@ -1,16 +1,16 @@
-import jwt from "jsonwebtoken";
+import { sign } from "jsonwebtoken";
 import config from "config";
 import { CreateUserInput } from "../schema/userSchema";
 
-export const signJet = async (
-  user: Omit<CreateUserInput, "password">,
-  key: "refreshToken" | "accessToken",
-  options?: jwt.SignOptions
+export const signJwt = (
+  user: CreateUserInput,
+  key: "refreshToken" | "accessToken"
 ) => {
-  const singKey = config.get<string>(key);
+  const singKey = config.get<string>(key).toString();
+  const userCreds = {
+    email: user.email,
+    username: user.username,
+  };
 
-  return jwt.sign(user, singKey, {
-    ...(options && options),
-    algorithm: "RS256",
-  });
+  return sign(userCreds, singKey);
 };

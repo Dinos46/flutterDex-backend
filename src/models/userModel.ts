@@ -7,6 +7,7 @@ import {
   Ref,
   index,
 } from "@typegoose/typegoose";
+import mongoose from "mongoose";
 import argon2 from "argon2";
 import logger from "../services/loggerService";
 import { Pokemon } from "./pokemonModel";
@@ -43,7 +44,13 @@ export class User {
   @prop({ required: true })
   public password: string;
 
-  @prop({ ref: () => Pokemon })
+  // @prop({ required: true })
+  // public accessToken: string;
+
+  // @prop({ required: true })
+  // public refreshToken: string;
+
+  @prop({ ref: () => Pokemon, type: mongoose.Types.ObjectId })
   public pokemon?: Ref<Pokemon>[];
 
   public async validatePassword(this: DocumentType<User>, inputPass: string) {

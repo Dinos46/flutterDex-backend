@@ -1,0 +1,38 @@
+@baseUrl = http://localhost:5000
+
+//health check route
+GET {{baseUrl}}/health
+
+###
+
+//user routes
+POST {{baseUrl}}/user
+Content-Type: application/json
+
+{
+    "email":"f@fgf.com",
+    "username":"dinos",
+    "password":"123456"
+}
+ 
+###
+
+GET   {{baseUrl}}/userMail/f@fg.com
+
+###
+
+GET   {{baseUrl}}/userId/633eb965c80fd1685cd79ea5
+
+###
+
+PUT {{baseUrl}}/user
+Content-Type: application/json
+
+{
+  "id":"633eb965c80fd1685cd79ea5"
+}
+
+###
+
+//pokemon routes
+GET {{baseUrl}}/pokemon

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-export interface IReq<T> extends Request<{}, {}, T> {
+export interface IReq<T, P> extends Request<P, {}, T> {
   user?: any;
 }
 
